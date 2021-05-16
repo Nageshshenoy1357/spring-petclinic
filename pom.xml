@@ -130,6 +130,9 @@
         <executions>
           <execution>
             <phase>validate</phase>
+            <configuration>
+              <skip>${disable.checks}</skip>
+            </configuration>
             <goals>
               <goal>validate</goal>
             </goals>
