@@ -94,8 +94,8 @@ pipeline {
                 stage('Deploy') {
                     steps {
                         echo 'Deploy Package'
-                        echo '${params.DEPLOYMENT_JOB_LINK}'
-                        build 'params.DEPLOYMENT_JOB_LINK'
+                        echo  "Job Link : ${params.DEPLOYMENT_JOB_LINK}"
+                        build "${params.DEPLOYMENT_JOB_LINK}"
                     }
                 }                          
             }
