@@ -4,6 +4,18 @@ pipeline {
     options {
         timestamps()
         skipDefaultCheckout()
+    }
+
+    parameters {
+        string(name: 'DEPLOYMENT_JOB_LINK', defaultValue: 'http://localhost:8080/job/Sample_Project/job/Trunk/job/Sample_Deployment_Pipeline/build?token=DEPLOYTOKEN', description: 'Deployment Job link')
+
+        // text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+
+        // booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        // choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        // password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }   
 
 
@@ -26,8 +38,8 @@ pipeline {
                     steps {
                         echo 'Compiling Source code'
                         // To run Maven on a Windows agent, use
-                        bat "mvn spring-javaformat:apply"
-                        bat "mvn clean compile"
+                        bat 'mvn spring-javaformat:apply'
+                        bat 'mvn clean compile'
                         // bat "mvn -Dmaven.test.failure.ignore=true clean package"
                     }
                 }
@@ -36,7 +48,7 @@ pipeline {
                     steps {
                         echo 'Executing Unit tests'
                         // To run Maven on a Windows agent, use
-                        bat "mvn test"
+                        bat 'mvn test'
                         // bat "mvn -Dmaven.test.failure.ignore=true clean package"
                     }
 
@@ -82,6 +94,8 @@ pipeline {
                 stage('Deploy') {
                     steps {
                         echo 'Deploy Package'
+                        echo '${params.DEPLOYMENT_JOB_LINK}'
+                        build 'params.DEPLOYMENT_JOB_LINK'
                     }
                 }                          
             }
